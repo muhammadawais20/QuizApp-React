@@ -1,0 +1,23 @@
+[
+  {
+    "category": "Entertainment: Video Games",
+    "type": "multiple",
+    "difficulty": "hard",
+    "question":
+      "What was the name of the hero in the 80s animated video game Dragon's Lair?",
+    "correct_answer": "Dirk the Daring",
+    "incorrect_answers": ["Arthur", "Sir Toby Belch", "Guy of Gisbourne"]
+  },
+  {
+    "category": "Animals",
+    "type": "multiple",
+    "difficulty": "easy",
+    "question": "What is the scientific name for modern day humans?",
+    "correct_answer": "Homo Sapiens",
+    "incorrect_answers": [
+      "Homo Ergaster",
+      "Homo Erectus",
+      "Homo Neanderthalensis"
+    ]
+  }
+]
