@@ -14,20 +14,24 @@ const QuizApp = () => {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
-    const [maxScore, setMaxScore] = useState(100);
-    const [minScore, setMinScore] = useState(0);
     const [show, setShow] = useState(false);
     const [showCorrect, setShowCorrect] = useState(false);
     const [showSorry, setShowSorry] = useState(false);
     const [showCompleted, setShowCompleted] = useState(false)
     const [disableOptions, setDisableOptions] = useState(false)
+    const [remainingQuestion, setRemainingQuestion] = useState(0);
 
-    const questionCategory = questions[currentQuestion].category;
-    const questionsLength = questions.length;
-    const question = questions[currentQuestion].question;
+    // const [question, setQuestion] = useState([]);
+
+    // const filterDifficulty = () => {
+    //     const questio = questions.filter(e => e.difficulty == "easy");
+    //     setQuestion(questio);
+    // }
+
+    // console.log("question", question[0]);  //Data filtered, work in progress
 
     const maxQuestion = () => {
-        if (currentQuestion == questionsLength - 1) {
+        if (currentQuestion === questionsLength - 1) {
             setShow(false);
             setShowCompleted(true);
         }
@@ -53,12 +57,13 @@ const QuizApp = () => {
             setDisableOptions(true);
         }
         
-        calclulateMinScore();
-        calclulateMaxScore();
+        const remainingQuestion = questions.length - currentQuestion - 1;
+        setRemainingQuestion(remainingQuestion)
         maxQuestion();
     }
 
     const nextQuestionHandler = () => {
+        
         const nextQuestion = currentQuestion + 1;
         setCurrentQuestion(nextQuestion);
 
@@ -68,25 +73,14 @@ const QuizApp = () => {
         setShow(false);
     }
 
-    let percentageBar = ((currentQuestion + 1) / questionsLength) * 100;
+    const questionCategory = questions[currentQuestion].category;
+    const questionsLength = questions.length;
+    const question = questions[currentQuestion].question;
 
-    let remainingQuestion = questionsLength - currentQuestion - 1;
+    let percentageBar = Math.round(((currentQuestion + 1) / questionsLength) * 100);
+    const currentScore = Math.round((score / questionsLength) * 100);
+    const maxScore = Math.round(((score + remainingQuestion) / questionsLength) * 100);
 
-    const currentScore = (score / questionsLength) * 100;
-
-    const calclulateMaxScore = () => {
-        const maxScore = ((score + remainingQuestion + 1) / questionsLength) * 100;
-        setMaxScore(maxScore);
-    }
-
-    const calclulateMinScore = () => {
-        if (remainingQuestion >= 2) {
-            const minScore = ((remainingQuestion - score) / questionsLength) * 100;
-            setMinScore(minScore);
-        }
-    }
-
-    console.log("minScore", minScore);
     let answerArray = [
         ...questions[currentQuestion].incorrect_answers,
         questions[currentQuestion].correct_answer,
@@ -99,6 +93,7 @@ const QuizApp = () => {
                 percentage={percentageBar}
             />
             <header>
+                {/* <button id="option1" className="option" onClick={filterDifficulty}>Filter</button> */} 
                 <QuestionTag
                     questionsLength={questionsLength}
                     currentQuestion={currentQuestion + 1}
@@ -124,10 +119,8 @@ const QuizApp = () => {
                                 clicked={() => checkAnswer(option)}
                             />
                         ))}
-
                     </div>
                     <div className="answer">
-
                         <QuestionResult
                             showCorrect={showCorrect}
                             showSorry={showSorry}
@@ -144,7 +137,7 @@ const QuizApp = () => {
                 <ScoreBar
                     currentScore={currentScore}
                     maxScore={maxScore}
-                    minScore={minScore}
+                    minScore={currentScore}
                 />
             </footer>
         </div>

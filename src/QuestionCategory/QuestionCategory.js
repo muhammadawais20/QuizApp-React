@@ -1,5 +1,4 @@
 import React from "react";
-import './QuestionCategory.css';
 
 const QuestionCategory = (props) => {
     return (

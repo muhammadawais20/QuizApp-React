@@ -1,5 +1,4 @@
 import React from "react";
-import './QuestionTag.css';
 
 const QuestionTag = (props) => {
     return (

@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import './QuestionResult.css';
+import React from "react";
 
 const QuestionResult = (props) => {
 
